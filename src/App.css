@@ -37,3 +37,22 @@
   }
 }
 
+form {
+  margin: 50px;
+
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+label {
+  display: inline-block;
+  width: 150px;
+}
+
+

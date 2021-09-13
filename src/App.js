@@ -7,7 +7,7 @@ function App () {
   const [bottles, setBottles] = useState(1)
   const [time, setTime] = useState(1)
   const [gender, setGender] = useState(0)
-  const [bal, setBal] = useState(0)
+  const [bal, setBal] = useState(0)       //bal = blood alcohol level
 
   function calculate(e) {
     e.preventDefault();
@@ -16,7 +16,24 @@ function App () {
     let burning = kg / 10;
     let gramsLeft = grams - (burning * time);
 
-    setBal(gramsLeft / (kg * 0.7));
+    let balM = gramsLeft / (kg * 0.7);      //bal male
+    let balF = gramsLeft / (kg * 0.6);      //bal female
+
+    let bal = 0;
+    
+    if (gender === "1") {
+      bal = balM;
+    } 
+    
+    if (gender === "2") {
+      bal = balF;
+    }
+
+    if (bal < 0) {
+      bal = 0;
+    }
+
+    setBal(bal);
   }
 
   return (
@@ -31,7 +48,7 @@ function App () {
       </div>
 
       <label for='bottles'>Bottles</label>
-      <select id='bottles' name='bottles' onChange={e => setBottles(e.target.value)}>
+      <select id='bottles' name='bottles' onChange={e => setBottles(e.target.value)} value={bottles}>
         <option value='1'>1</option>
         <option value='2'>2</option>
         <option value='3'>3</option>
@@ -41,15 +58,16 @@ function App () {
 
       <div>
         <label for='time'>Time (hours)</label>
-        <select id='time' name='time' onChange={e => setTime(e.target.value)}>
+        <select id='time' name='time' onChange={e => setTime(e.target.value)} value={time}>
           <option value='1'>1</option>
           <option value='2'>2</option>
           <option value='3'>3</option>
           <option value='4'>4</option>
+          <option value='5'>5</option>
         </select>
       </div>
 
-      <div class='radio'>
+      <div class='radio' onChange={e => setGender(e.target.value)} value={gender}>
         <label>Gender</label>
         <div class='form-check form-check-inline'>
           <input
@@ -57,7 +75,8 @@ function App () {
             type='radio'
             name='inlineRadioOptions'
             id='inlineRadio1'
-            value='option1'
+            value='1'
+            
           />
           <label class='form-check-label' for='inlineRadio1'>
             Male
@@ -69,7 +88,8 @@ function App () {
             type='radio'
             name='inlineRadioOptions'
             id='inlineRadio2'
-            value='option2'
+            value='2'
+            
           />
           <label class='form-check-label' for='inlineRadio2'>
             Female
@@ -78,7 +98,7 @@ function App () {
       </div>
 
       <div>
-        <label>Humala:</label>
+        <label>Blood alcohol level: </label>
         <output>{bal.toFixed(1)}</output>
       </div>
 

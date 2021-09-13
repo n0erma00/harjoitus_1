@@ -4,12 +4,19 @@ import { useState } from 'react'
 function App () {
 
   const [kg, setKg] = useState(0)
-  const [bottles, setBottles] = useState(0)
-  const [time, setTime] = useState(0)
+  const [bottles, setBottles] = useState(1)
+  const [time, setTime] = useState(1)
   const [gender, setGender] = useState(0)
+  const [bal, setBal] = useState(0)
 
-  function calculate() {
+  function calculate(e) {
+    e.preventDefault();
+    let litres = bottles * 0.33;
+    let grams = litres * 8 * 4.5;
+    let burning = kg / 10;
+    let gramsLeft = grams - (burning * time);
 
+    setBal(gramsLeft / (kg * 0.7));
   }
 
   return (
@@ -19,11 +26,12 @@ function App () {
       <h1>Calculating alcohol blood level</h1>
       <div>
         <label>Weight</label>
-        <input type='number' step='0.1'></input>
+        <input type='number' step='0.1' onChange={e => setKg(e.target.value)}
+              value={kg}></input>
       </div>
 
       <label for='bottles'>Bottles</label>
-      <select id='bottles' name='bottles'>
+      <select id='bottles' name='bottles' onChange={e => setBottles(e.target.value)}>
         <option value='1'>1</option>
         <option value='2'>2</option>
         <option value='3'>3</option>
@@ -32,8 +40,8 @@ function App () {
       </select>
 
       <div>
-        <label for='time'>Time</label>
-        <select id='time' name='time'>
+        <label for='time'>Time (hours)</label>
+        <select id='time' name='time' onChange={e => setTime(e.target.value)}>
           <option value='1'>1</option>
           <option value='2'>2</option>
           <option value='3'>3</option>
@@ -71,7 +79,7 @@ function App () {
 
       <div>
         <label>Humala:</label>
-        <output></output>
+        <output>{bal.toFixed(1)}</output>
       </div>
 
       <div>

@@ -40,7 +40,7 @@ function App () {
 
     <div id="container">
     <form onSubmit={calculate}>
-      <h1>Calculating alcohol blood level</h1>
+      <h1>Calculate blood alcohol level</h1>
       <div>
         <label>Weight</label>
         <input type='number' step='0.1' onChange={e => setKg(e.target.value)}
@@ -99,7 +99,7 @@ function App () {
 
       <div>
         <label>Blood alcohol level: </label>
-        <output>{bal.toFixed(1)}</output>
+        <output>{bal.toFixed(1)} </output>
       </div>
 
       <div>
